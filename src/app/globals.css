@@ -1,0 +1,68 @@
+:root {
+  --bg-top: #f5e7d0;
+  --bg-bottom: #f4f8f7;
+  --panel: rgba(255, 251, 245, 0.82);
+  --panel-strong: rgba(255, 248, 238, 0.94);
+  --border: rgba(86, 60, 30, 0.16);
+  --text-strong: #2d2015;
+  --text-muted: #6f6254;
+  --accent: #d5692b;
+  --accent-deep: #92431c;
+  --accent-soft: rgba(213, 105, 43, 0.12);
+  --teal: #2d8b84;
+  --teal-soft: rgba(45, 139, 132, 0.14);
+  --shadow: 0 18px 50px rgba(75, 44, 16, 0.12);
+}
+
+html[data-theme="dark"] {
+  --bg-top: #0f1418;
+  --bg-bottom: #171d22;
+  --panel: rgba(28, 34, 39, 0.84);
+  --panel-strong: rgba(34, 41, 47, 0.94);
+  --border: rgba(145, 162, 177, 0.16);
+  --text-strong: #f6efe6;
+  --text-muted: #b5aa9c;
+  --accent: #df7e42;
+  --accent-deep: #f1b07f;
+  --accent-soft: rgba(223, 126, 66, 0.18);
+  --teal: #74d2c8;
+  --teal-soft: rgba(116, 210, 200, 0.14);
+  --shadow: 0 18px 50px rgba(0, 0, 0, 0.28);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--text-strong);
+  font-family: "Aptos", "Bahnschrift", "Segoe UI", sans-serif;
+  background:
+    radial-gradient(circle at top left, rgba(255, 206, 137, 0.55), transparent 35%),
+    radial-gradient(circle at top right, rgba(89, 182, 171, 0.28), transparent 30%),
+    linear-gradient(180deg, var(--bg-top), var(--bg-bottom));
+  transition: background 220ms ease, color 220ms ease;
+}
+
+html[data-theme="dark"] body {
+  background:
+    radial-gradient(circle at top left, rgba(223, 126, 66, 0.14), transparent 35%),
+    radial-gradient(circle at top right, rgba(116, 210, 200, 0.12), transparent 30%),
+    linear-gradient(180deg, var(--bg-top), var(--bg-bottom));
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input {
+  font: inherit;
+}

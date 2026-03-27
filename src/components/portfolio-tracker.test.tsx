@@ -98,7 +98,7 @@ describe("PortfolioTracker", () => {
     });
 
     expect(screen.getAllByText("US$42.50")).toHaveLength(2);
-    expect(screen.getByText("官方已定价")).toBeInTheDocument();
+    expect(screen.queryByText("官方已定价")).not.toBeInTheDocument();
     expect(screen.getByText("PSA10")).toBeInTheDocument();
     expect(screen.getByText("12345678")).toBeInTheDocument();
     expect(screen.queryByText(/^Mint$/)).not.toBeInTheDocument();

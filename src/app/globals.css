@@ -12,22 +12,50 @@
   --teal: #2d8b84;
   --teal-soft: rgba(45, 139, 132, 0.14);
   --shadow: 0 18px 50px rgba(75, 44, 16, 0.12);
+  --hero-surface-a: rgba(255, 248, 237, 0.94);
+  --hero-surface-b: rgba(245, 255, 252, 0.84);
+  --input-surface: rgba(255, 255, 255, 0.78);
+  --input-border: rgba(45, 32, 21, 0.14);
+  --card-surface: rgba(255, 255, 255, 0.74);
+  --empty-surface: rgba(255, 255, 255, 0.42);
+  --thumb-image-surface: rgba(255, 255, 255, 0.88);
+  --price-surface: linear-gradient(135deg, rgba(255, 247, 240, 0.96), rgba(255, 252, 248, 0.92));
+  --price-border: rgba(213, 105, 43, 0.14);
+  --price-pending-surface: rgba(245, 243, 239, 0.9);
+  --price-pending-border: rgba(86, 60, 30, 0.12);
+  --error-surface: rgba(255, 243, 238, 0.92);
+  --error-border: rgba(176, 72, 36, 0.16);
+  --error-text: #8a3514;
 }
 
 html[data-theme="dark"] {
   --bg-top: #0f1418;
   --bg-bottom: #171d22;
-  --panel: rgba(28, 34, 39, 0.84);
-  --panel-strong: rgba(34, 41, 47, 0.94);
-  --border: rgba(145, 162, 177, 0.16);
-  --text-strong: #f6efe6;
-  --text-muted: #b5aa9c;
+  --panel: rgba(23, 28, 32, 0.9);
+  --panel-strong: rgba(29, 35, 40, 0.96);
+  --border: rgba(145, 162, 177, 0.14);
+  --text-strong: #e7dccb;
+  --text-muted: #ac9f8f;
   --accent: #df7e42;
-  --accent-deep: #f1b07f;
+  --accent-deep: #e8a06a;
   --accent-soft: rgba(223, 126, 66, 0.18);
-  --teal: #74d2c8;
-  --teal-soft: rgba(116, 210, 200, 0.14);
-  --shadow: 0 18px 50px rgba(0, 0, 0, 0.28);
+  --teal: #6ec8bf;
+  --teal-soft: rgba(110, 200, 191, 0.14);
+  --shadow: 0 20px 56px rgba(0, 0, 0, 0.34);
+  --hero-surface-a: rgba(33, 39, 43, 0.94);
+  --hero-surface-b: rgba(24, 30, 34, 0.9);
+  --input-surface: rgba(18, 23, 27, 0.92);
+  --input-border: rgba(145, 162, 177, 0.16);
+  --card-surface: rgba(39, 45, 50, 0.94);
+  --empty-surface: rgba(31, 37, 42, 0.82);
+  --thumb-image-surface: rgba(18, 23, 27, 0.96);
+  --price-surface: linear-gradient(135deg, rgba(64, 46, 35, 0.88), rgba(45, 34, 28, 0.9));
+  --price-border: rgba(223, 126, 66, 0.22);
+  --price-pending-surface: rgba(27, 32, 37, 0.94);
+  --price-pending-border: rgba(145, 162, 177, 0.14);
+  --error-surface: rgba(104, 44, 24, 0.18);
+  --error-border: rgba(223, 126, 66, 0.22);
+  --error-text: #f0b089;
 }
 
 * {

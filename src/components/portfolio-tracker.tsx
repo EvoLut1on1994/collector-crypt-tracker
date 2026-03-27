@@ -249,11 +249,6 @@ export function PortfolioTracker() {
                           <h3 className={styles.name}>{item.name}</h3>
                           <span className={styles.collection}>{item.collectionLabel}</span>
                         </div>
-                        <span
-                          className={`${styles.badge} ${item.priced ? "" : styles.badgeMuted}`}
-                        >
-                          {item.priced ? "官方已定价" : "待补价"}
-                        </span>
                       </div>
 
                       <dl className={styles.details}>

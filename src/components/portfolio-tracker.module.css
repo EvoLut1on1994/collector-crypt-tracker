@@ -271,8 +271,31 @@
 .metaTop {
   display: flex;
   align-items: flex-start;
-  justify-content: flex-start;
+  justify-content: space-between;
   gap: 16px;
+}
+
+.altToggle {
+  flex-shrink: 0;
+  min-width: 124px;
+  min-height: 40px;
+  padding: 0 14px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--panel-strong) 88%, transparent);
+  color: var(--text-strong);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 700;
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    background 180ms ease;
+}
+
+.altToggle:hover {
+  transform: translateY(-1px);
+  border-color: color-mix(in srgb, var(--accent) 38%, var(--border));
 }
 
 .name {
@@ -355,10 +378,207 @@
   color: var(--text-muted);
 }
 
+.altPanelWrap {
+  grid-column: 1 / -1;
+}
+
+.altLoading,
+.altError,
+.altEmpty {
+  padding: 18px 20px;
+  border-radius: 20px;
+}
+
+.altLoading {
+  border: 1px dashed color-mix(in srgb, var(--teal) 30%, var(--border));
+  background: color-mix(in srgb, var(--teal-soft) 55%, transparent);
+  color: var(--text-muted);
+}
+
+.altError {
+  border: 1px solid var(--error-border);
+  background: var(--error-surface);
+  color: var(--error-text);
+}
+
+.altEmpty {
+  border: 1px dashed color-mix(in srgb, var(--border) 92%, transparent);
+  background: color-mix(in srgb, var(--empty-surface) 96%, transparent);
+  color: var(--text-muted);
+}
+
+.altPanel {
+  display: grid;
+  gap: 18px;
+  padding: 20px;
+  border: 1px solid color-mix(in srgb, var(--teal) 16%, var(--border));
+  border-radius: 22px;
+  background:
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--panel-strong) 94%, transparent),
+      color-mix(in srgb, var(--panel) 92%, transparent)
+    );
+}
+
+.altPanelHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.altPanelTitle {
+  margin: 0;
+  font-size: 18px;
+}
+
+.altPanelSubtle {
+  margin: 6px 0 0;
+  color: var(--text-muted);
+  font-size: 13px;
+  line-height: 1.5;
+  word-break: break-word;
+}
+
+.altHighlights {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.altHighlight {
+  display: grid;
+  gap: 6px;
+  padding: 14px 16px;
+  border: 1px solid color-mix(in srgb, var(--border) 92%, transparent);
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--panel-strong) 92%, transparent);
+}
+
+.altHighlightLabel {
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.altHighlightValue {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.altHighlightMeta {
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.altSection {
+  display: grid;
+  gap: 12px;
+}
+
+.altSectionTitle {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.altPopulationGroups {
+  display: grid;
+  gap: 14px;
+}
+
+.altPopulationGroup {
+  display: grid;
+  gap: 10px;
+}
+
+.altPopulationCompany {
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.altPopulationGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.altPopulationChip {
+  display: grid;
+  gap: 4px;
+  min-width: 74px;
+  padding: 10px 12px;
+  border: 1px solid color-mix(in srgb, var(--border) 92%, transparent);
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--panel-strong) 94%, transparent);
+}
+
+.altPopulationChipCurrent {
+  border-color: color-mix(in srgb, var(--accent) 44%, transparent);
+  background: color-mix(in srgb, var(--accent-soft) 68%, transparent);
+}
+
+.altPopulationGrade {
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.altPopulationCount {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.altTransactions {
+  display: grid;
+  gap: 10px;
+}
+
+.altTransactionRow {
+  display: grid;
+  grid-template-columns: 112px minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  padding: 12px 14px;
+  border: 1px solid color-mix(in srgb, var(--border) 92%, transparent);
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--panel-strong) 94%, transparent);
+}
+
+.altTransactionSource {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 28px;
+  padding: 0 10px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--teal-soft) 72%, transparent);
+  color: var(--teal);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.altTransactionDate {
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.altTransactionPrice {
+  font-size: 18px;
+  font-weight: 700;
+}
+
 @media (max-width: 980px) {
   .stats,
   .grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .altHighlights {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -404,5 +624,13 @@
     width: min(76vw, 260px);
     height: min(102vw, 350px);
     margin: 0 auto;
+  }
+
+  .altToggle {
+    width: 100%;
+  }
+
+  .altTransactionRow {
+    grid-template-columns: 1fr;
   }
 }

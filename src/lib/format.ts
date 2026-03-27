@@ -11,6 +11,18 @@ export function formatUsd(value: number | null) {
   }).format(value);
 }
 
+export function formatCount(value: number) {
+  return new Intl.NumberFormat("zh-CN").format(value);
+}
+
+export function formatGradeNumber(value: string | null) {
+  if (!value) {
+    return "--";
+  }
+
+  return value.trim().replace(/\.0+$/, "");
+}
+
 export function shortenAddress(value: string, visible = 4) {
   if (value.length <= visible * 2) {
     return value;

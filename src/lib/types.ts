@@ -39,6 +39,44 @@ export type PortfolioResponse = {
   sourceStatus: SourceStatus;
 };
 
+export type AltPopulationEntry = {
+  gradingCompany: string;
+  gradeNumber: string;
+  count: number;
+};
+
+export type AltTransactionSource = "market" | "external";
+
+export type AltTransaction = {
+  id: string;
+  date: string;
+  price: number;
+  source: AltTransactionSource;
+};
+
+export type AltResearchCard = {
+  certificateNumber: string;
+  assetId: string;
+  assetName: string;
+  gradingCompany: string;
+  gradeNumber: string;
+  currentAltValue: number | null;
+  currentGradePopulation: number | null;
+  populations: AltPopulationEntry[];
+  recentTransactions: AltTransaction[];
+};
+
+export type AltResearchResponse =
+  | {
+      found: true;
+      card: AltResearchCard;
+    }
+  | {
+      found: false;
+      certificateNumber: string;
+      message: string;
+    };
+
 export type OwnedNft = {
   mint: string;
   name: string;

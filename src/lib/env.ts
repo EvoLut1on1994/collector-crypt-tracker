@@ -2,6 +2,8 @@ const DEFAULT_SOLANA_RPC_URLS = [
   "https://api.mainnet.solana.com",
   "https://api.mainnet-beta.solana.com",
 ];
+const DEFAULT_ALT_GRAPHQL_URL =
+  "https://alt-platform-server.production.internal.onlyalt.com/graphql/";
 const DEFAULT_CODES = ["pokemon_50", "pokemon_250"];
 const DEFAULT_COLLECTION_HINTS = [
   "Collector Crypt",
@@ -29,6 +31,7 @@ export function getRuntimeConfig() {
 
   return {
     collectorCryptApiKey: process.env.COLLECTOR_CRYPT_API_KEY?.trim() ?? "",
+    altGraphqlUrl: process.env.ALT_GRAPHQL_URL?.trim() || DEFAULT_ALT_GRAPHQL_URL,
     solanaRpcUrl: solanaRpcUrls[0],
     solanaRpcUrls,
     collectorCryptCodes: splitCsv(

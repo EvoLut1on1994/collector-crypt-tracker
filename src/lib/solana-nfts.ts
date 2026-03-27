@@ -55,8 +55,47 @@ async function getOwnerNftMints(connection: Connection, owner: PublicKey) {
   return [...mints].map((mint) => new PublicKey(mint));
 }
 
+async function getOwnedNftsFromRpc(
+  owner: PublicKey,
+  solanaRpcUrl: string,
+): Promise<OwnedNft[]> {
+  const connection = new Connection(solanaRpcUrl, {
+    commitment: "confirmed",
+    fetch: solanaRpcFetch,
+  });
+  const metaplex = Metaplex.make(connection);
+  const mints = await getOwnerNftMints(connection, owner);
+
+  if (mints.length === 0) {
+    return [];
+  }
+
+  const metadataList = await metaplex.nfts().findAllByMintList({ mints });
+  const nftCandidates = metadataList.filter(
+    (asset): asset is Exclude<(typeof metadataList)[number], null> =>
+      asset !== null && isNonFungible(asset),
+  );
+
+  return nftCandidates.map((asset) => {
+    return {
+      mint:
+        "mintAddress" in asset
+          ? asset.mintAddress.toBase58()
+          : asset.address.toBase58(),
+      name: asset.name.trim(),
+      image: null,
+      collectionLabel: (asset.symbol ?? asset.name ?? "").trim() || null,
+      searchableText: collectSearchableText(
+        asset.name,
+        asset.symbol,
+        "uri" in asset ? asset.uri : null,
+      ),
+    } satisfies OwnedNft;
+  });
+}
+
 export async function getOwnedNfts(ownerAddress: string): Promise<OwnedNft[]> {
-  const { solanaRpcUrl } = getRuntimeConfig();
+  const { solanaRpcUrls } = getRuntimeConfig();
   let owner: PublicKey;
 
   try {
@@ -65,50 +104,26 @@ export async function getOwnedNfts(ownerAddress: string): Promise<OwnedNft[]> {
     throw new AppError("请输入有效的 Solana 地址。", 400, "INVALID_SOLANA_ADDRESS");
   }
 
-  const connection = new Connection(solanaRpcUrl, {
-    commitment: "confirmed",
-    fetch: solanaRpcFetch,
-  });
-  const metaplex = Metaplex.make(connection);
+  let lastError: unknown = null;
 
-  try {
-    const mints = await getOwnerNftMints(connection, owner);
-
-    if (mints.length === 0) {
-      return [];
+  for (const solanaRpcUrl of solanaRpcUrls) {
+    try {
+      return await getOwnedNftsFromRpc(owner, solanaRpcUrl);
+    } catch (error) {
+      lastError = error;
     }
-
-    const metadataList = await metaplex.nfts().findAllByMintList({ mints });
-    const nftCandidates = metadataList.filter(
-      (asset): asset is Exclude<(typeof metadataList)[number], null> =>
-        asset !== null && isNonFungible(asset),
-    );
-    
-    return nftCandidates.map((asset) => {
-      return {
-        mint:
-          "mintAddress" in asset
-            ? asset.mintAddress.toBase58()
-            : asset.address.toBase58(),
-        name: asset.name.trim(),
-        image: null,
-        collectionLabel: (asset.symbol ?? asset.name ?? "").trim() || null,
-        searchableText: collectSearchableText(
-          asset.name,
-          asset.symbol,
-          "uri" in asset ? asset.uri : null,
-        ),
-      } satisfies OwnedNft;
-    });
-  } catch (error) {
-    if (error instanceof AppError) {
-      throw error;
-    }
-
-    throw new AppError(
-      "Solana 链上持仓查询失败，请稍后重试。",
-      502,
-      "SOLANA_RPC_FAILED",
-    );
   }
+
+  if (process.env.NODE_ENV !== "production") {
+    console.error("All Solana RPC endpoints failed.", {
+      solanaRpcUrls,
+      lastError,
+    });
+  }
+
+  throw new AppError(
+    "Solana 链上持仓查询失败，当前公共 RPC 可能不稳定，请稍后重试。",
+    502,
+    "SOLANA_RPC_FAILED",
+  );
 }

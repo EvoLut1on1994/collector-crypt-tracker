@@ -5,6 +5,7 @@ const execFileAsync = promisify(execFile);
 
 const POWERSHELL_TIMEOUT_SECONDS = 30;
 const MAX_BUFFER_BYTES = 20 * 1024 * 1024;
+const DEFAULT_FETCH_TIMEOUT_MS = 15_000;
 
 const encodePowerShellScript = (script: string) =>
   Buffer.from(script, "utf16le").toString("base64");
@@ -106,7 +107,34 @@ export async function solanaRpcFetch(
         : input.url;
 
   if (process.platform !== "win32") {
-    return fetch(input, init);
+    const controller = new AbortController();
+    const timeout = setTimeout(
+      () => controller.abort(new Error("Solana RPC request timed out.")),
+      DEFAULT_FETCH_TIMEOUT_MS,
+    );
+
+    const upstreamSignal = init?.signal;
+
+    if (upstreamSignal) {
+      if (upstreamSignal.aborted) {
+        controller.abort(upstreamSignal.reason);
+      } else {
+        upstreamSignal.addEventListener(
+          "abort",
+          () => controller.abort(upstreamSignal.reason),
+          { once: true },
+        );
+      }
+    }
+
+    try {
+      return await fetch(input, {
+        ...init,
+        signal: controller.signal,
+      });
+    } finally {
+      clearTimeout(timeout);
+    }
   }
 
   return invokePowerShellRequest(
